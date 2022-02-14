@@ -45,7 +45,7 @@ def add_weights(G):
 def main():
     G = gnp_random_connected_graph(500, 1)
     nodes, edges = add_weights(G)
-    print(nodes, edges)
+    print(nodes, edges[:5])
 
 
 if __name__ == '__main__':
