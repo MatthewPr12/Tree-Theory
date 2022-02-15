@@ -6,13 +6,14 @@ def find_adj(node, edges):
     children = []
     for i in edges:
         if i[0] == node:
-            children.append((i[2], i[1]))
+            children.append((i[2], i[1], i[0]))
         elif i[1] == node:
-            children.append((i[2], i[0]))
+            children.append((i[2], i[0], i[1]))
     return children
 
 
 def prim_mst(nodes, edges):
+    span = []
     mst_cost = 0
     visited_set = set()
     start_vertex = nodes[0]
@@ -25,18 +26,19 @@ def prim_mst(nodes, edges):
         if curr_vertex[1] not in visited_set:
             mst_cost += cost
             visited_set.add(curr_vertex[1])
+            span.append(curr_vertex)
             children = find_adj(curr_vertex[1], edges)
             for child in children:
                 if child[1] not in visited_set:
                     heapq.heappush(frontier_minheap, child)
-    return mst_cost
+    return span, mst_cost
 
 
 def execute():
-    G = gnp_random_connected_graph(5, 1)
+    G = gnp_random_connected_graph(500, 1)
     nodes, edges = add_weights(G)
-    print(nodes, edges)
-    print(prim_mst(nodes, edges))
+    tree, cost = prim_mst(nodes, edges)
+    print(tree, len(tree), cost)
 
 
 if __name__ == '__main__':
