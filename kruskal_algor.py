@@ -1,5 +1,6 @@
 """Kruskal's algorithm"""
 from main import gnp_random_connected_graph, add_weights
+from prim_mst import prim_mst
 
 
 def kruskal(nodes: list, edges: list) -> tuple[list[list], int]:
@@ -11,7 +12,7 @@ def kruskal(nodes: list, edges: list) -> tuple[list[list], int]:
     :param edges: list of graph edges
     :return: tuple of the minimum spanning forest and the weight of its frame
     """
-    edges = sorted(edges, key=lambda x: x[2])
+    nodes, edges = list(map(lambda x: [x], nodes)), sorted(edges, key=lambda x: x[2])
     weight, edges_list = 0, []
     while edges:
         vert1, vert2, vert_weight = edges.pop(0)
@@ -28,5 +29,6 @@ def kruskal(nodes: list, edges: list) -> tuple[list[list], int]:
 
 
 if __name__ == '__main__':
-    graph = add_weights(gnp_random_connected_graph(300, 0.2))
-    print(kruskal(list(map(lambda x: [x], graph[0])), graph[1]))
+    graph = add_weights(gnp_random_connected_graph(10, 0.2))
+    print(kruskal(graph[0], graph[1])[1])
+    print(prim_mst(graph[0], graph[1])[1])
