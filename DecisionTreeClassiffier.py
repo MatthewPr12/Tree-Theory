@@ -3,7 +3,6 @@ from sklearn.datasets import load_iris
 iris = load_iris()
 X = iris.data[:, :2]
 y = iris.target
-print(iris)
 
 
 class Node:
@@ -72,7 +71,7 @@ class MyDecisionTreeClassifier:
                     else:
                         right.append(series)
                 gini = self.gini([left, right], classes)
-                print('X%d < %.3f Gini=%.3f' % ((idx + 1), row[idx], gini))
+                print(f'X{idx+1} < {round(row[idx], 3)} Gini={round(gini, 3)}')
                 if gini < best_score:
                     best_idx, best_value, best_score, best_groups = idx, row[idx], gini, [left, right]
         return {'column': best_idx, 'value': best_value, 'groups': best_groups}
@@ -111,11 +110,11 @@ class MyDecisionTreeClassifier:
     def print_tree(self, node, depth=0):
         if isinstance(node, dict):
             # print(node)
-            # print('%s[X%d < %.3f]' % (depth * ' ', (node['column'] + 1), node['value']))
+            print(f"{depth * ' '}[X{node['column'] + 1} < {node['value']}]")
             self.print_tree(node['left'], depth + 1)
             self.print_tree(node['right'], depth + 1)
         else:
-            # print('%s[%s]' % (depth * ' ', node))
+            print(f"{depth * ' '}[{node}]")
 
     def predict(self, X_test, X, y):
         # traverse the tree while there is left node
@@ -141,17 +140,17 @@ class MyDecisionTreeClassifier:
 
 
 a = MyDecisionTreeClassifier(5)
-# X = [[2.771244718, 1.784783929],
-#      [1.728571309, 1.169761413],
-#      [3.678319846, 2.81281357],
-#      [3.961043357, 2.61995032],
-#      [2.999208922, 2.209014212],
-#      [7.497545867, 3.162953546],
-#      [9.00220326, 3.339047188],
-#      [7.444542326, 0.476683375],
-#      [10.12493903, 3.234550982],
-#      [6.642287351, 3.319983761]]
-# y = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+X = [[2.771244718, 1.784783929],
+     [1.728571309, 1.169761413],
+     [3.678319846, 2.81281357],
+     [3.961043357, 2.61995032],
+     [2.999208922, 2.209014212],
+     [7.497545867, 3.162953546],
+     [9.00220326, 3.339047188],
+     [7.444542326, 0.476683375],
+     [10.12493903, 3.234550982],
+     [6.642287351, 3.319983761]]
+y = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
 # print(a.gini([[[1, 1], [1, 0]], [[1, 1], [1, 0]]], [0, 1]))
 # print(a.gini([[[1, 0], [1, 0]], [[1, 1], [1, 1]]], [0, 1]))
 # print(a.split_data(X, y))
