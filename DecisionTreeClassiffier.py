@@ -1,8 +1,7 @@
 from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+import numpy as np
 
-iris = load_iris()
-X = iris.data[:, :2]
-y = iris.target
 
 
 class Node:
@@ -60,7 +59,7 @@ class MyDecisionTreeClassifier:
         best_idx, best_value, best_score, best_groups = \
             float('inf'), float('inf'), float('inf'), None
         # unite X and y
-        X = [X[i] + [y[i]] for i in range(len(X))]
+        X = [np.append(X[i], y[i]) for i in range(len(X))]
         classes = list(set(y))
         for idx in range(len(X[0]) - 1):
             for row in X:
@@ -151,10 +150,45 @@ X = [[2.771244718, 1.784783929],
      [10.12493903, 3.234550982],
      [6.642287351, 3.319983761]]
 y = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+
+# dataset = [[2.771244718, 1.784783929, 0],
+#            [1.728571309, 1.169761413, 0],
+#            [3.678319846, 2.81281357, 0],
+#            [3.961043357, 2.61995032, 0],
+#            [2.999208922, 2.209014212, 0],
+#            [7.497545867, 3.162953546, 1],
+#            [9.00220326, 3.339047188, 1],
+#            [7.444542326, 0.476683375, 1],
+#            [10.12493903, 3.234550982, 1],
+#            [6.642287351, 3.319983761, 1]]
+#
+#  predict with a stump
+# stump = {'column': 0, 'right': 1, 'value': 6.642287351, 'left': 0}
+# for row in dataset:
+#     prediction = a.perform_prediction(row, stump)
+#     print('Expected=%d, Got=%d' % (row[-1], prediction))
 # print(a.gini([[[1, 1], [1, 0]], [[1, 1], [1, 0]]], [0, 1]))
 # print(a.gini([[[1, 0], [1, 0]], [[1, 1], [1, 1]]], [0, 1]))
 # print(a.split_data(X, y))
-# X_test =
+# X_test = [[2.171244718, 1.084783929],
+#      [2.728571309, 1.069761413],
+#      [2.678319846, 4.81281357],
+#      [3.061043357, 1.61995032],
+#      [2.099208922, 1.209014212],
+#      [4.497545867, 3.962953546],
+#      [4.00220326, 2.339047188],
+#      [7.044542326, 2.476683375],
+#      [10.12493903, 3.234550982],
+#      [3.642287351, 1.319983761]]
+iris = load_iris()
+X = iris.data[:, :2]
+y = iris.target
+X, X_test, y, y_test = train_test_split(X, y, test_size=0.20)
+print(X_test.shape)
 tree = a.build_tree(X, y, 1)
 a.print_tree(tree)
-# print(a.predict(X, X, y))
+predictions = a.predict(X_test, X, y)
+print(predictions)
+print(sum(predictions == y_test) / len(y_test))
+print(y_test)
+
