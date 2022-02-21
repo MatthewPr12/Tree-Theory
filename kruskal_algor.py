@@ -1,6 +1,4 @@
 """Kruskal's algorithm"""
-from main import gnp_random_connected_graph, add_weights
-from prim_mst import prim_mst
 
 
 def kruskal(nodes: list, edges: list) -> tuple[list[list], int]:
@@ -26,9 +24,3 @@ def kruskal(nodes: list, edges: list) -> tuple[list[list], int]:
             weight += vert_weight
             edges_list.append([vert1, vert2])
     return edges_list, weight
-
-
-if __name__ == '__main__':
-    graph = add_weights(gnp_random_connected_graph(10, 0.2))
-    print(kruskal(graph[0], graph[1])[1])
-    print(prim_mst(graph[0], graph[1])[1])

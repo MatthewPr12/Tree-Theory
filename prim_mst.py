@@ -1,4 +1,3 @@
-from main import gnp_random_connected_graph, add_weights
 import heapq
 
 
@@ -32,14 +31,3 @@ def prim_mst(nodes, edges):
                 if child[1] not in visited_set:
                     heapq.heappush(frontier_minheap, child)
     return span, mst_cost
-
-
-def execute():
-    G = gnp_random_connected_graph(500, 1)
-    nodes, edges = add_weights(G)
-    tree, cost = prim_mst(nodes, edges)
-    print(tree, len(tree), cost)
-
-
-if __name__ == '__main__':
-    execute()
