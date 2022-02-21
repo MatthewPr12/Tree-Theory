@@ -27,23 +27,27 @@ def gnp_random_connected_graph(num_of_nodes: int,
 
     for (u, v, w) in G.edges(data=True):
         w['weight'] = random.randint(0, 20)
-
     return G
 
 
 def add_weights(graph):
+    """
+    Inherently graph is unweighted
+    Add weights to the graph
+    :param graph:
+    :return: tuple(list_of_edges, list_of_nodes)
+    """
     edges = list(map(lambda x: (x[0], x[1], x[2]['weight']), graph.edges(data=True)))
     nodes = list(graph.nodes)
     return nodes, edges
 
 
-def visualisation(mstk):
-    nx.draw(mstk, node_color='lightblue',
-            with_labels=True,
-            node_size=500)
-
-
 def results(vertex):
+    """
+    set timer and make a research
+    :param vertex: int
+    :return: list
+    """
     result = []
     for possibility in range(1, 101, 1):
         possibility = possibility/100
@@ -58,6 +62,15 @@ def results(vertex):
 
 
 def saving_results(start, end, step, repetition):
+    """
+    save result of results (func)
+    start (vertex), end (vertex)
+    :param start: int
+    :param end: int
+    :param step: int
+    :param repetition: int
+    :return: None
+    """
     result = []
     for vertex in range(start, end, step):
         print(vertex)
@@ -68,6 +81,10 @@ def saving_results(start, end, step, repetition):
 
 
 def sort_csv():
+    """
+    sort csv file by third and fourth columns
+    :return: None
+    """
     file = pd.read_csv('dataset.csv')
     result_dict = []
     for index, row in file.iterrows():
@@ -79,16 +96,3 @@ def sort_csv():
     result = sorted(result_dict, key=lambda x: (x[2], x[3]), reverse=True)
     file = pd.DataFrame(result, columns=['Kruskal_time', 'Prim_time', 'Num_of_nodes', 'Completeness'])
     file.to_csv('dataset.csv')
-
-
-if __name__ == '__main__':
-    # for start in range(500, 505, 5):
-    #     start2 = time.time()
-    #     saving_results(start, start+5, 5, 1)
-    #     print(f'save - {start} time - {time.time()-start2}')
-    #     if start % 55 == 0:
-    #         sort_csv(
-
-    # saving_results(10, 100, 5, 3)
-
-    sort_csv()
