@@ -1,7 +1,16 @@
+"""
+Prim's algorithm
+"""
 import heapq
 
 
 def find_adj(node, edges):
+    """
+    find nodes adjacent to the given
+    :param node:
+    :param edges:
+    :return:
+    """
     children = []
     for i in edges:
         if i[0] == node:
@@ -12,6 +21,12 @@ def find_adj(node, edges):
 
 
 def prim_mst(nodes, edges):
+    """
+    perform Prim's algorithm
+    :param nodes:
+    :param edges:
+    :return:
+    """
     span = []
     mst_cost = 0
     visited_set = set()
