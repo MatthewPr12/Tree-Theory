@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+import re
 
 
 def read_data(max_vertex, plot=False):
@@ -89,10 +90,10 @@ if __name__ == "__main__":
             break
         print('3d or 2d?')
         plot = input('>>> ')
-        if '3' in plot and not '2' in plot:
+        if re.match(r"^[3, з, З][д, Д, D, d]", plot):
             visual(*read_data(num))
             break
-        elif '2' in plot:
+        elif re.match(r"^[2][д, Д, D, d]", plot):
             while True:
                 print('Possibility є [0.01, 1.0], enter one number')
                 try:
