@@ -9,7 +9,7 @@ def find_adj(node, edges):
     find nodes adjacent to the given
     :param node:
     :param edges:
-    :return:
+    :return: list[tuples] -> adjacent nodes
     """
     children = []
     for i in edges:
@@ -25,11 +25,9 @@ def prim_mst(nodes, edges):
     perform Prim's algorithm
     :param nodes:
     :param edges:
-    :return:
+    :return: spanning tree and cost of it
     """
-    span = []
-    mst_cost = 0
-    visited_set = set()
+    span, mst_cost, visited_set = [], 0, set()
     start_vertex = nodes[0]
     frontier_minheap = find_adj(start_vertex, edges)
     heapq.heapify(frontier_minheap)
