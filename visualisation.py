@@ -90,10 +90,10 @@ if __name__ == "__main__":
             break
         print('3d or 2d?')
         plot = input('>>> ')
-        if re.match(r"^[3, з, З][д, Д, D, d]", plot):
+        if re.match(r"^[3зЗ][дДDd]?", plot):
             visual(*read_data(num))
             break
-        elif re.match(r"^[2][д, Д, D, d]", plot):
+        elif re.match(r"^[2][дДDd]?", plot):
             while True:
                 print('Possibility є [0.01, 1.0], enter one number')
                 try:
