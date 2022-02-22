@@ -66,6 +66,12 @@ def d2_visual(data1, data2, possibility):
 
     data1 = np.array(new_data1)
     data2 = np.array(new_data2)
+    # data1_mid_point = data1[len(data1)//2]
+    # data2_mid_point = data2[len(data2)//2]
+    # data1_end_point = data1[len(data1) - 1]
+    # data2_end_point = data2[len(data2) - 1]
+    # plt.annotate('bla', data2_mid_point, data1_mid_point, data2_end_point, data1_end_point)
+    # plt.plot(data1_mid_point, data2_mid_point, data1_end_point, data2_end_point, 'ro')
     plt.plot(data1[:, 1], data1[:, 0], label='kruskal')
     plt.plot(data2[:, 1], data2[:, 0], label='prim')
     plt.xlabel("Num of nodes (N)")
@@ -90,10 +96,10 @@ if __name__ == "__main__":
             break
         print('3d or 2d?')
         plot = input('>>> ')
-        if re.match(r"^[3зЗ][дДDd]?", plot):
+        if re.match(r"^[3зЗ][дДDd]?$", plot):
             visual(*read_data(num))
             break
-        elif re.match(r"^[2][дДDd]?", plot):
+        elif re.match(r"^2[дДDd]?$", plot):
             while True:
                 print('Possibility є [0.01, 1.0], enter one number')
                 try:
